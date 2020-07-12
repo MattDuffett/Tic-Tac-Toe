@@ -7,6 +7,8 @@ class GameState {
         this.objects = [];
         this.turn = true; //True for player 1s turn false for player 2
         this.text = "Player 1 turn"
+        this.resetButton = new Button(50,50,100,50,"Reset Game");
+        this.objects.push(this.resetButton);
     }
     update() {
         this.board.update();
@@ -30,8 +32,6 @@ class GamePlay extends GameState {
         super(board,c);
         this.clicked = false; //stops lots of calls being made when clicking.
         this.switchGameMode = false;
-        this.resetButton = new Button(50,50,100,50,"Reset Game");
-        this.objects.push(this.resetButton);
     }
     update(){
         super.update();
@@ -66,8 +66,6 @@ class GamePlay extends GameState {
 class GameOver extends GameState {
     constructor(board,c,turn) {
         super(board,c);
-        this.resetButton = new Button(50,50,100,50,"Reset Game");
-        this.objects.push(this.resetButton);
         this.turn = turn
         if(this.turn){
             this.text = "Player 1 Wins!!"
