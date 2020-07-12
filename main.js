@@ -2,6 +2,8 @@ var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
+var state = -1;
+var text = 'Player 1 turn'
 
 var board = [0, 0, 0,
     0, 0, 0,
@@ -50,6 +52,7 @@ function init() {
 gameOver = false;
 function checkForEndGame() {
     sum = 0;
+    if (state == -2) return -2;
     if (checkWin(1)) {
         gameOver = true;
         return 1;
@@ -98,6 +101,13 @@ function checkWin(player) {
     }
 
     return false;
+}
+function resetGame() {
+    board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    state = -1;
+    turn = false;
+    coolDown = false;
+    gameOver = false;
 }
 
 function animate() {
@@ -152,24 +162,29 @@ function animate() {
         }
 
     }
+    if(turn&state !=-2) {
+        text = 'Player 2 Turn'
+    } else if(state!=-2){
+        text = 'Player 1 Turn'
+    }
     state = checkForEndGame();
     if (state == 1) {
-        c.beginPath()
-        c.fillText("Player 1 Wins!!", 50, 50)
-        c.fillStyle = '#000000';
-        c.fill();
+        text = 'Player 1 Wins!!'
+        state = -2;
     } else if (state == 2) {
-        c.beginPath()
-        c.fillText("Player 2 Wins!!", 50, 50)
-        c.fillStyle = '#000000';
-        c.fill();
+        text = 'Player 2 wins!!'
+        state = -2;
     } else if (state == 0) {
-        c.beginPath()
-        c.fillText("Draw Game", 50, 50)
-        c.fillStyle = '#000000';
-        c.fill();
+        text = 'Draw Game!!'
+        state = -2;
     }
+    c.beginPath()
+    c.fillText(text, 50, 50)
+    c.fillStyle = '#000000';
+    c.fill();
 }
+
+
 
 init();
 animate();
