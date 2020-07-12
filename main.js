@@ -49,51 +49,51 @@ function init() {
 }
 gameOver = false;
 function checkForEndGame() {
-    sum=0;
-    if(checkWin(1)){
+    sum = 0;
+    if (checkWin(1)) {
         gameOver = true;
         return 1;
     }
-    if(checkWin(2)){
+    if (checkWin(2)) {
         gameOver = true;
         return 2;
     }
-        
-    for(var i = 0; i < board.length;i++){
-        if(board[i] == 0){
+
+    for (var i = 0; i < board.length; i++) {
+        if (board[i] == 0) {
             sum++;
         }
     }
-    if(sum==0){
+    if (sum == 0) {
         gameOver = true;
         return 0;
     }
     return -1;
 }
 
-function checkWin(player){
-    if(board[0]==player & board[1]==player&board[2]==player){
+function checkWin(player) {
+    if (board[0] == player & board[1] == player & board[2] == player) {
         return true;
     }
-    if(board[0+3]==player & board[1+3]==player&board[2+3]==player){
+    if (board[0 + 3] == player & board[1 + 3] == player & board[2 + 3] == player) {
         return true;
     }
-    if(board[0+2*3]==player & board[1+2*3]==player&board[2+2*3]==player){
+    if (board[0 + 2 * 3] == player & board[1 + 2 * 3] == player & board[2 + 2 * 3] == player) {
         return true;
     }
-    if(board[0]==player & board[0+3]==player&board[0+2*3]==player){
+    if (board[0] == player & board[0 + 3] == player & board[0 + 2 * 3] == player) {
         return true;
     }
-    if(board[1]==player & board[1+3]==player&board[1+2*3]==player){
+    if (board[1] == player & board[1 + 3] == player & board[1 + 2 * 3] == player) {
         return true;
     }
-    if(board[2]==player & board[2+3]==player&board[2+2*3]==player){
+    if (board[2] == player & board[2 + 3] == player & board[2 + 2 * 3] == player) {
         return true;
     }
-    if(board[0]==player & board[1+1*3]==player&board[2+2*3]==player){
+    if (board[0] == player & board[1 + 1 * 3] == player & board[2 + 2 * 3] == player) {
         return true;
     }
-    if(board[2]==player & board[1+1*3]==player&board[0+2*3]==player){
+    if (board[2] == player & board[1 + 1 * 3] == player & board[0 + 2 * 3] == player) {
         return true;
     }
 
@@ -138,34 +138,34 @@ function animate() {
         y = (mouse.y - 100) / 100;
         y = Math.floor(y);
 
-        if (x < 3 & x >= 0 & y < 3 & y >= 0 & board[x+y*3]==0) {
+        if (x < 3 & x >= 0 & y < 3 & y >= 0 & board[x + y * 3] == 0) {
             if (turn) {
                 board[x + y * 3] = 2;
                 turn = !turn;
-                coolDown=true;
+                coolDown = true;
             } else if (!turn) {
                 board[x + y * 3] = 1;
                 turn = !turn;
-                coolDown=true;
+                coolDown = true;
 
             }
         }
-        
+
     }
     state = checkForEndGame();
-    if(state == 1){
+    if (state == 1) {
         c.beginPath()
-        c.fillText("Player 1 Wins!!", 50,50)
+        c.fillText("Player 1 Wins!!", 50, 50)
         c.fillStyle = '#000000';
         c.fill();
-    } else if(state == 2){
+    } else if (state == 2) {
         c.beginPath()
-        c.fillText("Player 2 Wins!!", 50,50)
+        c.fillText("Player 2 Wins!!", 50, 50)
         c.fillStyle = '#000000';
         c.fill();
-    } else if(state==0){
+    } else if (state == 0) {
         c.beginPath()
-        c.fillText("Draw Game", 50,50)
+        c.fillText("Draw Game", 50, 50)
         c.fillStyle = '#000000';
         c.fill();
     }
