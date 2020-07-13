@@ -1,7 +1,9 @@
 var canvas = document.querySelector("canvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 300;
+canvas.height = 300;
 var c = canvas.getContext('2d');
+var rect = canvas.getBoundingClientRect();
+document.documentElement.style.overflow = 'hidden';
 
 var mouse = {
     x: undefined,
@@ -14,14 +16,15 @@ window.addEventListener("contextmenu", function (event) {
 })
 
 window.addEventListener('mousemove', function (event) {
-    mouse.x = event.x;
-    mouse.y = event.y;
+
+    mouse.x = event.x-rect.left;
+    mouse.y = event.y-rect.top;
 })
 
 window.addEventListener('resize', function (event) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
+    rect = canvas.getBoundingClientRect();
     init();
 })
 
@@ -41,7 +44,7 @@ window.addEventListener('mouseup', function (event) {
 })
 
 function init() {
-    state = new GamePlay(new Board(300, 100, 100), c);
+    state = new GamePlay(new Board(100), c);
 }
 
 function animate() {
@@ -52,9 +55,6 @@ function animate() {
     state.render(c);
     if (state.switchGameMode) {
         state = new GameOver(state.board, c, state.turn);
-    }
-    if (state.resetButton.clicked) {
-        state = new GamePlay(new Board(300, 100, 100), c);
     }
 }
 init();

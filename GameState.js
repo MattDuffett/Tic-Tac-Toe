@@ -4,26 +4,16 @@
 class GameState {
     constructor(board, c) {
         this.board = board;
-        this.objects = [];
         this.turn = true; //True for player 1s turn false for player 2
-        this.text = "Player 1 turn"
-        this.resetButton = new Button(50, 50, 100, 50, "Reset Game");
-        this.objects.push(this.resetButton);
+        this.text = "Player 1 Turn"
+        
     }
     update() {
         this.board.update();
-        this.objects.forEach(function (object) {
-            object.update();
-        });
-
+        document.getElementById("Text").innerHTML = this.text;
     }
     render(c) {
         this.board.render(c);
-        this.objects.forEach(function (object) {
-            object.render(c);
-        });
-        c.fillStyle = "#000000"
-        c.fillText(this.text, 200, 100)
     }
 }
 
@@ -43,9 +33,9 @@ class GamePlay extends GameState {
             this.clicked = false;
         }
         if (this.turn) {
-            this.text = "Player 1 turn"
+            this.text = "Player 1 Turn"
         } else {
-            this.text = "Player 2 turn"
+            this.text = "Player 2 Turn"
         }
     }
     render(c) {
@@ -53,7 +43,6 @@ class GamePlay extends GameState {
     }
 
     makeTurn() {
-
         if (this.board.makeTurn(this.turn, mouse.x, mouse.y)) {
             if (this.board.checkWinConditions(this.turn)) {
                 this.switchGameMode = true;
@@ -64,7 +53,6 @@ class GamePlay extends GameState {
                 this.turn = !this.turn;
             }
         }
-
     }
 }
 
@@ -79,6 +67,7 @@ class GameOver extends GameState {
         } else {
             this.text = "Player 2 Wins!!"
         }
+        document.getElementById("Text").innerHTML = this.text;
     }
     update() {
         super.update();
