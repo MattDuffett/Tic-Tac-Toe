@@ -40,8 +40,8 @@ window.addEventListener('mouseup', function (event) {
     rightMouseDown = false;
 })
 
-function init(){
-    state = new GamePlay(new Board(300,100,100),c);
+function init() {
+    state = new GamePlay(new Board(300, 100, 100), c);
 }
 
 function animate() {
@@ -50,11 +50,11 @@ function animate() {
 
     state.update();
     state.render(c);
-    if(state.switchGameMode){
-        state = new GameOver(state.board,c,state.turn);
+    if (state.switchGameMode) {
+        state = new GameOver(state.board, c, state.turn);
     }
-    if(state.resetButton.clicked){
-        state = new GamePlay(new Board(300,100,100),c);
+    if (state.resetButton.clicked) {
+        state = new GamePlay(new Board(300, 100, 100), c);
     }
 }
 init();
